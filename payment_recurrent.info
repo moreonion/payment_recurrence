@@ -1,0 +1,7 @@
+name = Recurrent payments
+description = Allow payment line items to be declared as recurrent.
+core = 7.x
+package = Payment
+
+dependencies[] = payment
+

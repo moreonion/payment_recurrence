@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function payment_recurrent_schema() {
+  $fields['pid'] = [
+    'description' => 'The {payment}.pid the referenced line item belongs to.',
+    'type' => 'int',
+    'not null' => TRUE,
+  ];
+  $fields['name'] = [
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+  ];
+  $fields['interval_unit'] = [
+    'type' => 'varchar',
+    'length' => 16,
+    'description' => 'Base unit for the payment interval',
+  ];
+  $fields['interval_value'] = [
+    'type' => 'int',
+    'size' => 'tiny',
+    'unsigned' => TRUE,
+    'description' => 'multiplier for the interval (ie. 2 = bi-weekly/monthly/…)',
+  ];
+  $fields['day_of_month'] = [
+    'type' => 'int',
+    'size' => 'tiny',
+    'description' => 'For yearly or monthly payments this indicates the day of month when the payment is processed.',
+  ];
+  $fields['month'] = [
+    'type' => 'int',
+    'size' => 'tiny',
+    'description' => 'For yearly payments this indicates the month when the payment is processed.',
+  ];
+  $fields['start_date'] = [
+    'type' => 'date',
+    'mysql_type' => 'date',
+    'description' => 'Earliest date for the first payment.',
+  ];
+  $fields['count'] = [
+    'type' => 'int',
+    'unsigned' => TRUE,
+  ];
+  $schema['payment_line_item_recurrence'] = [
+    'description' => 'Optional recurrence data for payment line items.',
+    'fields' => $fields,
+    'primary key' => ['pid', 'name'],
+  ];
+  return $schema;
+}
