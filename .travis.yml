@@ -27,7 +27,7 @@ before_script:
   - ln -s $repo $root/sites/all/modules/module_under_test
   - cd $root
   - drush dl payment
-  - drush --yes pm-enable payment_recurrent
+  - drush --yes pm-enable payment_recurrence
 
 script:
   - cd $repo

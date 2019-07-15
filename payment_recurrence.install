@@ -3,7 +3,7 @@
 /**
  * Implements hook_schema().
  */
-function payment_recurrent_schema() {
+function payment_recurrence_schema() {
   $fields['pid'] = [
     'description' => 'The {payment}.pid the referenced line item belongs to.',
     'type' => 'int',

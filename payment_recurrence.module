@@ -8,7 +8,7 @@
 /**
  * Implements hook_entity_load().
  */
-function payment_recurrent_entity_load(array $entities, $entity_type) {
+function payment_recurrence_entity_load(array $entities, $entity_type) {
   if ($entity_type == 'payment') {
     $query = db_select('payment_line_item_recurrence', 't')
       ->fields('t')
@@ -27,7 +27,7 @@ function payment_recurrent_entity_load(array $entities, $entity_type) {
 /**
  * Implements hook_payment_insert().
  */
-function payment_recurrent_payment_insert(Payment $payment) {
+function payment_recurrence_payment_insert(Payment $payment) {
   $fields = drupal_get_schema('payment_line_item_recurrence')['fields'];
   foreach ($payment->line_items as $name => $line_item) {
     if (!empty($line_item->recurrence) && $line_item->recurrence->interval_unit) {
@@ -45,8 +45,8 @@ function payment_recurrent_payment_insert(Payment $payment) {
 /**
  * Implements hook_payment_update().
  */
-function payment_recurrent_payment_update(Payment $payment) {
-  payment_recurrent_payment_insert($payment);
+function payment_recurrence_payment_update(Payment $payment) {
+  payment_recurrence_payment_insert($payment);
   if ($payment->line_items) {
     db_delete('payment_line_item_recurrence')
       ->condition('pid', $payment->pid)
@@ -58,7 +58,7 @@ function payment_recurrent_payment_update(Payment $payment) {
 /**
  * Implements hook_payment_delete().
  */
-function payment_recurrent_payment_delete(Payment $payment) {
+function payment_recurrence_payment_delete(Payment $payment) {
   db_delete('payment_line_item_recurrence')
     ->condition('pid', $payment->pid)
     ->execute();

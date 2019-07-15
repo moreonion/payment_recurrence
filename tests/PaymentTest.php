@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\payment_recurrent;
+namespace Drupal\payment_recurrence;
 
 use Upal\DrupalUnitTestCase;
 
