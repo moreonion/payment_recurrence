@@ -19,7 +19,7 @@ function payment_recurrent_entity_load(array $entities, $entity_type) {
       $line_item = $payment->line_items[$data['name']];
       unset($data['pid']);
       unset($data['name']);
-      $line_item->recurrence = $data;
+      $line_item->recurrence = (object) $data;
     }
   }
 }
@@ -30,8 +30,8 @@ function payment_recurrent_entity_load(array $entities, $entity_type) {
 function payment_recurrent_payment_insert(Payment $payment) {
   $fields = drupal_get_schema('payment_line_item_recurrence')['fields'];
   foreach ($payment->line_items as $name => $line_item) {
-    if (!empty($line_item->recurrence) && $line_item->recurrence['interval_unit']) {
-      $values = array_intersect_key($line_item->recurrence, $fields);
+    if (!empty($line_item->recurrence) && $line_item->recurrence->interval_unit) {
+      $values = array_intersect_key((array) $line_item->recurrence, $fields);
       unset($values['pid']);
       unset($values['name']);
       db_merge('payment_line_item_recurrence')
@@ -47,10 +47,12 @@ function payment_recurrent_payment_insert(Payment $payment) {
  */
 function payment_recurrent_payment_update(Payment $payment) {
   payment_recurrent_payment_insert($payment);
-  db_delete('payment_line_item_recurrence')
-    ->condition('pid', $payment->pid)
-    ->condition('name', array_keys($payment->line_items), 'NOT IN')
-    ->execute();
+  if ($payment->line_items) {
+    db_delete('payment_line_item_recurrence')
+      ->condition('pid', $payment->pid)
+      ->condition('name', array_keys($payment->line_items), 'NOT IN')
+      ->execute();
+  }
 }
 
 /**

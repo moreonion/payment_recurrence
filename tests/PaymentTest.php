@@ -50,7 +50,7 @@ class PaymentTest extends DrupalUnitTestCase {
    */
   public function testSaveLoad() {
     $line_item = $this->payment->line_items['test'];
-    $line_item->recurrence = [
+    $line_item->recurrence = (object) [
       'interval_unit' => 'yearly',
       'interval_value' => 1,
       'month' => 10,
@@ -61,10 +61,10 @@ class PaymentTest extends DrupalUnitTestCase {
     entity_save('payment', $this->payment);
 
     $payment = entity_load_single('payment', $this->payment->pid);
-    $line_item = $payment->line_items['test'];
+    $new_line_item = $payment->line_items['test'];
 
-    foreach ($line_item->recurrence as $field => $value) {
-      $this->assertEqual($value, $line_item->recurrence[$field]);
+    foreach (((array) $line_item->recurrence) as $field => $value) {
+      $this->assertEqual($value, $new_line_item->recurrence->$field);
     }
   }
 
