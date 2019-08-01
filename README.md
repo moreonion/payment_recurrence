@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/moreonion/payment_recurrence.svg?branch=7.x-1.x)](https://travis-ci.com/moreonion/payment_recurrence) [![codecov](https://codecov.io/gh/moreonion/payment_recurrence/branch/7.x-1.x/graph/badge.svg)](https://codecov.io/gh/moreonion/payment_recurrence)
+
 # Payment recurrence
 
 This is a Drupal module that extends the [payment module](https://www.drupal.org/project/payment) by adding a standardized way to specify recurrency on payment line items.
