@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install time hook implementation for the payment recurrence module.
+ */
+
+/**
  * Implements hook_schema().
  */
 function payment_recurrence_schema() {
