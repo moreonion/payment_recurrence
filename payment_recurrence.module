@@ -19,6 +19,9 @@ function payment_recurrence_entity_load(array $entities, $entity_type) {
       $line_item = $payment->line_items[$data['name']];
       unset($data['pid']);
       unset($data['name']);
+      if (!empty($data['start_date'])) {
+        $data['start_date'] = new DateTime($data['start_date'], new \DateTimeZone('UTC'));
+      }
       $line_item->recurrence = (object) $data;
     }
   }
@@ -34,6 +37,9 @@ function payment_recurrence_payment_insert(Payment $payment) {
       $values = array_intersect_key((array) $line_item->recurrence, $fields);
       unset($values['pid']);
       unset($values['name']);
+      if (!empty($values['start_date']) && $values['start_date'] instanceof DateTime) {
+        $values['start_date'] = $values['start_date']->format('Y-m-d');
+      }
       db_merge('payment_line_item_recurrence')
         ->key(['pid' => $payment->pid, 'name' => $name])
         ->fields($values)
