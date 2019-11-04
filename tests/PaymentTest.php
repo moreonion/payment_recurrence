@@ -55,7 +55,7 @@ class PaymentTest extends DrupalUnitTestCase {
       'interval_value' => 1,
       'month' => 10,
       'day_of_month' => 15,
-      'start_date' => '2019-07-09',
+      'start_date' => new \DateTime('tomorrow', new \DateTimeZone('UTC')),
       'count' => 5,
     ];
     entity_save('payment', $this->payment);
