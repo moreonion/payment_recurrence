@@ -30,6 +30,7 @@ With this module enabled each payment line item can optionally have an additiona
 *Please open a documentation bug if a payment method is missing here*
 
 * [gocardless](https://www.drupal.org/project/gocardless_payment)
+* [Stripe](https://www.drupal.org/project/stripe_payment)
 
 
 ## Rationale
