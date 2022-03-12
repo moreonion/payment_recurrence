@@ -12,7 +12,7 @@ class PaymentTest extends DrupalUnitTestCase {
   /**
    * Create a test payment.
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->payment = new \Payment([
       'description' => 'gocardless test payment',
@@ -28,7 +28,7 @@ class PaymentTest extends DrupalUnitTestCase {
   /**
    * Remove the test payment.
    */
-  public function tearDown() {
+  public function tearDown(): void {
     if ($this->payment->pid) {
       entity_delete('payment', $this->payment->pid);
     }
